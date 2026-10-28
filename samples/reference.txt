@@ -1,0 +1,7 @@
+chinese.wav
+人工参考文本：你好，欢迎使用本地语音识别系统。今天的天气很好，我们一起测试中文语音转文字。
+时长：约 12.54 秒。
+
+english.wav
+人工参考文本：Hello, welcome to this local speech recognition system. Today we are testing English speech to text on a regular computer.
+时长：约 10.48 秒。

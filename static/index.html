@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>本地语音转文字 · Local Speech</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/realtime.js" defer></script>
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="masthead">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">◉</span> LOCAL / SPEECH</div>
+      <div class="local-badge"><span class="badge-dot"></span> 本地处理 · 无需云端</div>
+    </header>
+
+    <section class="hero">
+      <p class="eyebrow">VOICE TO TEXT / 语音转文字</p>
+      <h1>说出来，<br><em>写下来。</em></h1>
+      <p class="intro">让每一句话都有迹可循。直接录制，或上传一段音频；语音只在这台电脑上识别。</p>
+    </section>
+
+    <div class="workspace">
+      <section class="panel input-panel" aria-labelledby="input-title">
+        <div class="panel-top"><span class="step">01 / INPUT</span><span class="panel-rule"></span></div>
+        <h2 id="input-title">输入音频</h2>
+        <label class="field-label" for="mode">录音模式</label>
+        <select id="mode" aria-label="录音模式">
+          <option value="normal">普通识别 · 停止后识别</option>
+          <option value="realtime">实时识别 · 讲话时分段出字</option>
+        </select>
+        <p class="status" id="mode-hint">普通模式：停止录音后，一次性提交识别。文件上传始终使用普通识别。</p>
+        <label class="field-label" for="language">识别语言</label>
+        <select id="language" aria-label="识别语言">
+          <option value="zh">中文 · 普通话</option>
+          <option value="en">English · 英语</option>
+        </select>
+
+        <div class="recorder" id="recorder">
+          <div class="record-graphic" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <p class="timer" id="timer">00:00</p>
+          <p class="timer-label">最长录制 60 秒</p>
+          <meter id="input-level" min="0" max="1" value="0" aria-label="麦克风输入音量" style="width:100%;height:14px"></meter>
+          <p class="timer-label" id="input-hint">录音时显示实际输入音量</p>
+          <div class="button-row">
+            <button class="button primary" id="start" type="button"><span class="record-dot" aria-hidden="true"></span> Start Recording</button>
+            <button class="button secondary" id="stop" type="button" disabled>Stop Recording</button>
+          </div>
+        </div>
+
+        <div id="recording-preview" hidden style="margin-top:16px">
+          <label class="field-label" for="recording-audio">刚才的录音 · 本地回放</label>
+          <audio id="recording-audio" controls preload="metadata" style="width:100%"></audio>
+          <p id="recording-details" class="status"></p>
+          <a id="recording-download" style="color:#efaa77;font-size:12px">下载本次录音（排查用）</a>
+        </div>
+
+        <div class="divider"><span>或上传现有音频</span></div>
+        <label class="upload-box" for="file"><span class="upload-icon" aria-hidden="true">↥</span><span><strong>选择音频文件</strong><small>WAV / WebM（含 .weba）/ OGG · ≤ 10 MiB · ≤ 65 秒</small></span></label>
+        <input id="file" class="visually-hidden" type="file" accept=".wav,.webm,.weba,.ogg,audio/wav,audio/webm,audio/ogg">
+        <p class="selected-file" id="selected-file">尚未选择文件</p>
+        <button class="button upload-button" id="upload" type="button" disabled>上传并识别 <span aria-hidden="true">↗</span></button>
+      </section>
+
+      <section class="panel result-panel" aria-labelledby="result-title">
+        <div class="panel-top"><span class="step">02 / TRANSCRIPT</span><span class="panel-rule"></span></div>
+        <div class="result-heading"><h2 id="result-title">识别结果</h2><span id="status-pill" class="pill" data-state="idle">待开始</span></div>
+        <p id="status" class="status" role="status" aria-live="polite">选择语言，然后录音或上传文件。</p>
+        <div class="transcript-wrap"><p class="transcript-placeholder" id="placeholder">识别出的文字会出现在这里。</p><div id="transcript" class="transcript" aria-label="识别文字"></div></div>
+        <div class="result-footer">
+          <dl class="metrics"><div><dt>识别语言</dt><dd id="result-language">中文</dd></div><div><dt>音频时长</dt><dd id="duration">—</dd></div><div><dt>处理耗时</dt><dd id="processing">—</dd></div></dl>
+          <button class="button copy-button" id="copy" type="button" disabled>复制文字 <span aria-hidden="true">⧉</span></button>
+        </div>
+      </section>
+    </div>
+    <footer class="page-footer"><span>LOCAL FIRST / PRIVATE BY DEFAULT</span><span>音频不保存 · 仅供单机使用</span></footer>
+  </main>
+</body>
+</html>
